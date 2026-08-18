@@ -41,18 +41,17 @@ jobs:
         uses: actions/upload-pages-artifact@v3 
         with: 
           path: ./dist 
- 
 
   deploy: 
     name: Publicar no GitHub Pages 
-    needs: ci                                       
+    needs: ci
     if: github.ref == 'refs/heads/main' 
     runs-on: ubuntu-latest 
- 
+
     environment: 
       name: github-pages 
       url: ${{ steps.deployment.outputs.page_url }} 
- 
+
     steps: 
       - name: Fazer o deploy 
         id: deployment 
