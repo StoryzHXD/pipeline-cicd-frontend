@@ -2,37 +2,29 @@ yaml
 name: CI/CD Pipeline 
 # GATILHOS: quando o pipeline deve rodar 
 on: 
-push: 
-branches: [main] 
-pull_request: 
-branches: [main] 
-workflow_dispatch: # permite acionar manualmente pelo botão "Run 
-workflow" 
+  push: 
+    branches: [main] 
+    pull_request: 
+    branches: [main] 
+    workflow_dispatch: # permite acionar manualmente pelo botão "Run workflow" 
+
 # PERMISSÕES necessárias para publicar no GitHub Pages 
 permissions: 
-contents: read 
-pages: write 
-id-token: write 
+  contents: read 
+  pages: write 
+  id-token: write 
 # Cancela execuções antigas se um novo push chegar 
 concurrency: 
-group: "pages" 
-cancel-in-progress: false 
+  group: "pages" 
+  cancel-in-progress: false 
 jobs: 
-# ============================================ 
-# JOB 1 - INTEGRAÇÃO CONTÍNUA (CI) 
-# ============================================ 
-ci: 
-name: Instalar, Testar e Buildar 
-runs-on: ubuntu-latest 
-steps: - name: 1. Baixar o código do repositório 
-uses: actions/checkout@v4 
-[SIS]          
-[Unidade: Integração com Serviços Externos e Esteiras de Entrega]     [Componente: Programação Front-End] 
  
-     
-      
-[SIS]          [Unidade: Integração com Serviços Externos e Esteiras de Entrega]     [Componente: Programação Front-End] 
-  
+  ci: 
+    name: Instalar, Testar e Buildar 
+    runs-on: ubuntu-latest 
+    steps: 
+      - name: 1. Baixar o código do repositório 
+        uses: actions/checkout@v4 
       - name: 2. Preparar o Node.js 
         uses: actions/setup-node@v4 
         with: 
