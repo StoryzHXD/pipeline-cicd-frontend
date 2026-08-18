@@ -1,24 +1,22 @@
 yaml 
 name: CI/CD Pipeline 
-# GATILHOS: quando o pipeline deve rodar 
+
 on: 
   push: 
     branches: [main] 
     pull_request: 
     branches: [main] 
-    workflow_dispatch: # permite acionar manualmente pelo botão "Run workflow" 
-
-# PERMISSÕES necessárias para publicar no GitHub Pages 
+    workflow_dispatch: 
+ 
 permissions: 
   contents: read 
   pages: write 
   id-token: write 
-# Cancela execuções antigas se um novo push chegar 
+
 concurrency: 
   group: "pages" 
   cancel-in-progress: false 
 jobs: 
- 
   ci: 
     name: Instalar, Testar e Buildar 
     runs-on: ubuntu-latest 
@@ -45,15 +43,11 @@ jobs:
         with: 
           path: ./dist 
  
-  # ============================================ 
-  # JOB 2 - ENTREGA CONTÍNUA (CD) 
-  # ============================================ 
+
   deploy: 
     name: Publicar no GitHub Pages 
-    needs: ci                                        # só roda se o job 
-"ci" passar 
-    if: github.ref == 'refs/heads/main'              # só publica a 
-partir da main 
+    needs: ci                                       
+    if: github.ref == 'refs/heads/main' 
     runs-on: ubuntu-latest 
  
     environment: 
